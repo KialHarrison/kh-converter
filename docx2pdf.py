@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from docx2pdf import convert
 import os
+import requests
+
+GITHUB_API_URL = "https://api.github.com/repos/KialHarrison/kh-converter/releases/latest"
+CURRENT_VERSION = "0.1"
 
 class DocxToPdfConverter(tk.Tk):
     def __init__(self):
@@ -14,6 +18,7 @@ class DocxToPdfConverter(tk.Tk):
         self.output_dir = ""
 
         self.create_widgets()
+        self.check_for_updates()
 
     def create_widgets(self):
         tk.Label(self, text="Input Directory:").grid(row=0, column=0, padx=10, pady=10, sticky="e")
@@ -61,6 +66,25 @@ class DocxToPdfConverter(tk.Tk):
         except Exception as e:
             messagebox.showerror("Conversion Error", f"An error occurred during conversion: {e}")
             print(f"Error details: {e}")
+            
+    def check_for_updates(self):
+        try:
+            response = requests.get(GITHUB_API_URL)
+            response.raise_for_status()
+            latest_release = response.json()
+            latest_version = latest_release["tag_name"]
+
+            if self.is_newer_version(latest_version, CURRENT_VERSION):
+                messagebox.showinfo("Update Available", f"A new version ({latest_version}) is available. Please update your application.")
+            else:
+                print("You are using the latest version.")
+        except requests.RequestException as e:
+            print(f"Error checking for updates: {e}")
+
+    def is_newer_version(self, latest, current):
+        latest_parts = [int(part) for part in latest.split('.')]
+        current_parts = [int(part) for part in current.split('.')]
+        return latest_parts > current_parts
 
 if __name__ == "__main__":
     app = DocxToPdfConverter()
