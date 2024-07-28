@@ -1,5 +1,5 @@
 .venv/
 build/
 dist/
-testing.spec
+kh-converter.spec
 .DS_Store
