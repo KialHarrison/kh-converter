@@ -64,17 +64,26 @@ class Tab2(ttk.Frame):
     def create_widgets(self):
         ttk.Label(self, text="Testing").grid(row=0, column=0, padx=10, pady=10)
         
-root = tk.Tk()
-root.title("KH Converter")
+def maintened_by_label(root):
+    maintened_by_label= ttk.Label(text="Maintained by: Kial Harrison", font=("Arial", 10))
+    maintened_by_label.place(relx=1.0, rely=1.0, anchor='se')
+        
+def main():
+    root = tk.Tk()
+    root.title("KH Converter")
 
-notebook = ttk.Notebook(root)
-notebook.grid(column=3, row=3)
+    notebook = ttk.Notebook(root)
+    notebook.grid(column=3, row=3)
 
-# Create tabs
-tab1 = Tab1(notebook)
-tab2 = Tab2(notebook)
+    # Create tabs
+    tab1 = Tab1(notebook)
+    tab2 = Tab2(notebook)
 
-notebook.add(tab1, text="Tab 1")
-notebook.add(tab2, text="Tab 2")
+    notebook.add(tab1, text="Tab 1")
+    notebook.add(tab2, text="Tab 2")
 
-root.mainloop()
+    maintened_by_label(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
