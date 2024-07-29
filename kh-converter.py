@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, ttk
 from docx2pdf import convert
 import os
 import requests
@@ -13,6 +13,7 @@ class DocxToPdfConverter(tk.Tk):
 
         self.title("DOCX to PDF Converter")
         self.geometry("600x200")
+        tabControl = ttk.Notebook(self)
 
         self.input_dir = ""
         self.output_dir = ""
@@ -21,19 +22,29 @@ class DocxToPdfConverter(tk.Tk):
         # self.check_for_updates()
 
     def create_widgets(self):
-        tk.Label(self, text="Input Directory:").grid(row=0, column=0, padx=10, pady=10, sticky="e")
-        self.input_entry = tk.Entry(self, width=30)
-        self.input_entry.grid(row=0, column=1, padx=10, pady=10)
+        tabControl = ttk.Notebook(self)
+        
+        tab1 = ttk.Frame(tabControl)
+        tab2 = ttk.Frame(tabControl)
+        
+        tabControl.add(tab1, text='DOCX to PDF')
+        tabControl.add(tab2, text='Testing')
 
-        tk.Button(self, text="Browse", command=self.browse_input).grid(row=0, column=2, padx=10, pady=10)
+        tabControl.grid(column=3, row=3)
+        
+        ttk.Label(tab1, text="Input Directory:").grid(row=1, column=1, padx=10, pady=10)
+        self.input_entry = ttk.Entry(tab1, width=30)
+        self.input_entry.grid(row=1, column=2, padx=10, pady=10)
 
-        tk.Label(self, text="Output Directory:").grid(row=1, column=0, padx=10, pady=10, sticky="e")
-        self.output_entry = tk.Entry(self, width=30)
-        self.output_entry.grid(row=1, column=1, padx=10, pady=10)
+        ttk.Button(tab1, text="Browse", command=self.browse_input).grid(row=1, column=3, padx=10, pady=10)
 
-        tk.Button(self, text="Browse", command=self.browse_output).grid(row=1, column=2, padx=10, pady=10)
+        ttk.Label(tab1, text="Output Directory:").grid(row=2, column=1, padx=10, pady=10)
+        self.output_entry = ttk.Entry(tab1, width=30)
+        self.output_entry.grid(row=2, column=2, padx=10, pady=10)
 
-        tk.Button(self, text="Convert", command=self.convert_files).grid(row=2, column=0, columnspan=3, pady=20)
+        ttk.Button(tab1, text="Browse", command=self.browse_output).grid(row=2, column=3, padx=10, pady=10)
+
+        ttk.Button(tab1, text="Convert", command=self.convert_files).grid(row=3, column=2, padx=10, pady=10)
 
     def browse_input(self):
         self.input_dir = filedialog.askdirectory()
