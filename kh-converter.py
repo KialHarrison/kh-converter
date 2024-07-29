@@ -5,7 +5,7 @@ import os
 import requests
 
 GITHUB_API_URL = "https://api.github.com/repos/KialHarrison/kh-converter/releases/latest"
-CURRENT_VERSION = "0.1"
+CURRENT_VERSION = "1.0.0"
 
 class DocxToPdfConverter(tk.Tk):
     def __init__(self):
@@ -18,7 +18,7 @@ class DocxToPdfConverter(tk.Tk):
         self.output_dir = ""
 
         self.create_widgets()
-        self.check_for_updates()
+        # self.check_for_updates()
 
     def create_widgets(self):
         tk.Label(self, text="Input Directory:").grid(row=0, column=0, padx=10, pady=10, sticky="e")
