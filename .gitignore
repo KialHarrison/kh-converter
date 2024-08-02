@@ -3,3 +3,4 @@ build/
 dist/
 kh-converter.spec
 .DS_Store
+commands.txt
