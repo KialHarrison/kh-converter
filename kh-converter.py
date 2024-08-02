@@ -68,7 +68,9 @@ def maintened_by_label(root):
     maintened_by_label= ttk.Label(text="Maintained by: Kial Harrison", font=("Arial", 10))
     maintened_by_label.place(relx=1.0, rely=1.0, anchor='se')
         
-def main():
+
+
+if __name__ == "__main__":
     root = tk.Tk()
     root.title("KH Converter")
 
@@ -84,6 +86,3 @@ def main():
 
     maintened_by_label(root)
     root.mainloop()
-
-if __name__ == "__main__":
-    main()
